@@ -38,6 +38,11 @@ indxB = AssignmentToIndex(assignments(:, mapB), B.card);
 % YOUR CODE HERE
 % Correctly populate the factor values of B
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+for i=1:length(A.val),
+	bAssignment = IndexToAssignment(indxB(i), B.card);
+	aVal = GetValueOfAssignment(A, assignments(i,:));
+	bVal = GetValueOfAssignment(B, bAssignment);
+	B = SetValueOfAssignment(B, bAssignment, aVal+bVal);
+end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
