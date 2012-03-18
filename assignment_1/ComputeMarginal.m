@@ -26,8 +26,21 @@ end
 % M should be a factor
 % Remember to renormalize the entries of M!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-M = struct('var', [], 'card', [], 'val', []); % Returns empty factor. Change this.
-
+F = ObserveEvidence(F, E);
+M = ComputeJointDistribution(F);
+marginalized_variables = setdiff(M.var, V);
+M = FactorMarginalization(M, marginalized_variables);
+assignments = IndexToAssignment(1:prod(M.card), M.card);
+normalization_sum = 0;
+for i=1:length(M.val),
+	mAssignment = assignments(i,:);
+	mVal = GetValueOfAssignment(M, mAssignment);
+	normalization_sum = normalization_sum + mVal;
+end;
+for i=1:length(M.val),
+	mAssignment = assignments(i,:);
+	mVal = GetValueOfAssignment(M, mAssignment) / normalization_sum;
+	M = SetValueOfAssignment(M, mAssignment, mVal);
+end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
