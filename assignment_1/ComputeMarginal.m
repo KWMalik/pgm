@@ -37,10 +37,6 @@ for i=1:length(M.val),
 	mVal = GetValueOfAssignment(M, mAssignment);
 	normalization_sum = normalization_sum + mVal;
 end;
-for i=1:length(M.val),
-	mAssignment = assignments(i,:);
-	mVal = GetValueOfAssignment(M, mAssignment) / normalization_sum;
-	M = SetValueOfAssignment(M, mAssignment, mVal);
-end;
+M.val = M.val / normalization_sum
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end
